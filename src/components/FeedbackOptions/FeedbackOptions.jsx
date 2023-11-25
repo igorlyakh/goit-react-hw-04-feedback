@@ -1,18 +1,12 @@
 import Button from 'components/Button';
 import React from 'react';
 
-const FeedbackOptions = ({ variables, onUpdate }) => {
+const FeedbackOptions = ({ onGood, onNeutral, onBad }) => {
   return (
     <div>
-      {variables.map(item => {
-        return (
-          <Button
-            key={item}
-            onUpdate={() => onUpdate(item)}
-            text={item.replace(item[0], item[0].toUpperCase())}
-          />
-        );
-      })}
+      <Button onUpdate={() => onGood(prev => prev + 1)} text="Good" />
+      <Button onUpdate={() => onNeutral(prev => prev + 1)} text="Neutral" />
+      <Button onUpdate={() => onBad(prev => prev + 1)} text="Bad" />
     </div>
   );
 };
