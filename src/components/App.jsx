@@ -3,8 +3,6 @@ import Statistics from './Statistics';
 import FeedbackOptions from './FeedbackOptions';
 import Notification from './Notification';
 
-// import React from 'react';
-
 export const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -18,13 +16,30 @@ export const App = () => {
     return (good / total) * 100;
   };
 
+  const clickHandler = option => {
+    console.log(option);
+    switch (option) {
+      case 'good':
+        setGood(prev => prev + 1);
+        break;
+      case 'neutral':
+        setNeutral(prev => prev + 1);
+        break;
+      default:
+        setBad(prev => prev + 1);
+        break;
+    }
+  };
+
   const total = getTotal();
   const percent = getPercent();
+
+  const keys = ['good', 'neutral', 'bad'];
 
   return (
     <>
       <h2>Pleader leave feedback</h2>
-      <FeedbackOptions onGood={setGood} onNeutral={setNeutral} onBad={setBad} />
+      <FeedbackOptions keys={keys} clickHandler={clickHandler} />
       <h2>Statistics</h2>
       {total > 0 ? (
         <Statistics
